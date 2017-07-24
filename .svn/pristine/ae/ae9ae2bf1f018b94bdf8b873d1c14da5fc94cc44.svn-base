@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>ebuy</title>
+    <script src="src/common/js/zepto-1.1.6.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="src/common/js/swiper.animate1.0.2.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="src/common/js/swiper-3.3.1.jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="src/common/css/swiper-3.3.1.min.css"/>
+		<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+	  <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="/dist/build.js"></script>
+  </body>
+</html>
