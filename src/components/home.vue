@@ -3,7 +3,7 @@
 		<div class="ho_nav">
 			<p class="ho_title" id="0">Home<span class="ho_tit"></span></p>
 			<p class="ho_title" id="1">All<span class></span></p>
-			<p class="ho_title" id="2">New<span class></span></p>
+			<p class="ho_title" id="2">Enshrine<span class></span></p>
 			<p class="ho_title" id="3">Trends<span class></span></p>
 		</div>
 		<div class="ho_rong" style="margin-bottom: 0.35rem;">
@@ -35,7 +35,7 @@
 		name:'home',
 		data(){
 			return{
-				str:'',
+				str:''
 				
 			}
 		},
@@ -47,25 +47,24 @@
 		},
 		mounted(){
 			var this1 =this
-		$('.ho_rong').eq(0).css({'display':'block','top':'0.5rem'})
-		$('.ho_nav').find('.ho_title').click(function(){
-			var _this = this 
-			this1.str = $(this).text()			
-			$('.ho_rong').each(function(i){
-				
-				if($('.ho_rong')[i].style.display=='block'){
+			$('.ho_rong').eq(0).css({'display':'block','top':'0.5rem'})
+			$('.ho_nav').find('.ho_title').click(function(){
+				var _this = this 
+				this1.str = $(this).text()
+				this1.$emit("v-title",this1.str)
+				$('.ho_rong').each(function(i){
 					
-					$('.ho_rong').eq(i).animate({'left':'-100vw'},300,function(){
-						$('.ho_rong').eq(i).css({'top':'100vh','left':0})	 
-						$('.ho_rong').eq($(_this).attr('id')).animate({'top':'0.5rem','left':0},300).show(300)
+					if($('.ho_rong')[i].style.display=='block'){						
+						$('.ho_rong').eq(i).animate({'left':'-100vw'},300,function(){
+							$('.ho_rong').eq(i).css({'top':'100vh','left':0})	 
+							$('.ho_rong').eq($(_this).attr('id')).animate({'top':'0.5rem','left':0},300).show(300)
+							
+						}).hide(300)
 						
-					}).hide(300)
-					
-				}
-			})			
-		
-			$('.ho_nav').find('span').removeClass()			
-			$(this).find('span').addClass('ho_tit')
+					}
+				})						
+				$('.ho_nav').find('span').removeClass()			
+				$(this).find('span').addClass('ho_tit')
 		})
 	}
 }

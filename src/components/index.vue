@@ -1,28 +1,28 @@
 <template>
 <div id="index">			
 	<div>
-	<mt-header fixed title="EBUY" style='background: #fff;color: #000000;font-size: 0.17rem;z-index: 100;'>
-		<router-link to="/" slot="left">
-		    <mt-button icon="back"></mt-button>
-		  </router-link>
+	<mt-header fixed :title="tit" style='background: #fff;color: #000000;font-size: 0.17rem;z-index: 100;'>
+			
+		    <mt-button icon="back" slot="left" @click="inback"></mt-button>
+		 
 		  <mt-button icon="search" slot="right"></mt-button>		
 	</mt-header>
 	
 	<div id="in-rong" style="margin-top:0.5rem ; margin-bottom: 0.4rem;">
-		<router-view></router-view>
+		<router-view @v-title="title"></router-view>
 	</div>
 	
 	<mt-tabbar fixed>
 	  <mt-tab-item  class='in-but'>
-	  		<router-link to="/home"><i class="iconfont" >&#xe60b;</i></router-link>	    	
+	  		<router-link to="/home"><i class="iconfont" @click="tap1">&#xe60b;</i></router-link>	    	
 	  </mt-tab-item>
 	  <mt-tab-item class='in-but'>
-	   	<router-link to="/cart"><i class="iconfont">&#xe6c9;</i></router-link>
+	   	<router-link to="/cart"><i class="iconfont" @click="tap2">&#xe6c9;</i></router-link>
 	
 	  </mt-tab-item>
 	  
 	  <mt-tab-item class='in-but'>	    
-	      <i class="iconfont">&#xe64b;</i>
+	     <router-link to="/personal"><i class="iconfont">&#xe64b;</i></router-link>
 	  </mt-tab-item>
 	</mt-tabbar>
 	
@@ -33,6 +33,25 @@
 <script>   
 	export default {
 		name: 'index',
+		data(){
+			return{
+				tit:'Home'
+			}
+		},
+		methods:{
+			inback:function(){
+				history.back()
+			},
+			title:function(title){
+				this.tit = title 
+			},
+			tap1:function(){
+				this.tit = 'Home'
+			},
+			tap2:function(){
+				this.tit = "cart"
+			}
+		}
 	}	
 </script>
 

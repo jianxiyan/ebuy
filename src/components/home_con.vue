@@ -3,8 +3,8 @@
 		<div class="swiper-container">
 			  <div class="swiper-wrapper">
 			    <div class="swiper-slide ho_swiper"><img src="../common/img/QQ截图20170719220111.png"/></div>
-			    <div class="swiper-slide ho_swiper"><img src="../common/img/QQ截图20170719220111.png"/></div>
-			    <div class="swiper-slide ho_swiper"><img src="../common/img/QQ截图20170719220111.png"/></div>
+			    <div class="swiper-slide ho_swiper"><img src="../common/img/TB1LVx2SpXXXXa_aXXXSutbFXXX.jpg"/></div>
+			    <div class="swiper-slide ho_swiper"><img src="../common/img/11111111.jpg"/></div>
 			  </div>
 		</div>
 			
@@ -56,7 +56,7 @@
 		
 		data(){
 			return{
-			  	list:["src/common/img/QQ截图20170719220111.png","src/common/img/QQ截图20170719220111.png","src/common/img/QQ截图20170719220111.png"],
+			  	list:["src/common/img/11111111.jpg","src/common/img/TB24DtJXXojyKJjy0FiXXbCrVXa-356060330.jpg","src/common/img/QQ截图20170719220111.png"],
 				hoArr:[]
 			}
 		},
@@ -77,21 +77,25 @@
 			});
 		},
 		mounted(){
-			var mySwiper = new Swiper('.swiper-container', {
+			
 				
-			})
-			var swiper = new Swiper('.swiper-container1', {
-				effect : 'coverflow',
-				slidesPerView: 1.3,
-				centeredSlides: true,
-				coverflow: {
-		            rotate: 30,
-		            stretch: 5,
-		            depth: 60,
-		            modifier: 2,
-		            slideShadows : true
-				}
-        	});
+				var mySwiper = new Swiper('.swiper-container', {
+					
+				})
+				var swiper = new Swiper('.swiper-container1', {
+					effect : 'coverflow',
+					slidesPerView: 1.3,
+					centeredSlides: true,
+					coverflow: {
+			            rotate: 30,
+			            stretch: 5,
+			            depth: 60,
+			            modifier: 2,
+			            slideShadows : true
+					}
+	        	});
+			
+			
 		}
 	}
 </script>

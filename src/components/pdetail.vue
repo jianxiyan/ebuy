@@ -1,89 +1,75 @@
 <template>
-	<div id="pro_detail">
-		<div>
-			<mt-header fixed title="Detail" style='background: #fff;color: #000000;font-size: 0.17rem;z-index: 100;'>				
-				  <mt-button icon="back" slot="left" @click="back()"></mt-button>		
-			</mt-header>
+	<div id="pro_">
+		<div id="pro_detail">
+		<mt-header fixed title="EBUY" style='background: #fff;color: #000000;font-size: 0.17rem;z-index: 100;'>
+			<router-link to="/home" slot="left">
+		  	<mt-button icon="back"></mt-button>		
+		    	
+		 </router-link>
+		  	<mt-button icon="search" slot="right"></mt-button>		
+		</mt-header>
 			<div class="swiper-container2">
 			    <div class="swiper-wrapper">
-			        <div class="swiper-slide" v-for="item in goodsBenUrl"><img :src="item"/></div>
+			        <div class="swiper-slide pd_swiper" v-for="item in goodsBenUrl"><img :src="item"/></div>
 			       
-			    </div>
+				</div>
 			</div>
-			<div class="tit">
-				<div class="left">
+			<div class="pd_tit">
+				<div class="pd_left">
 					<p>{{arr.goodsName}}</p>
 					<p>Original Chionese style</p>
 				</div>
-				<div class="right">
+				<div class="pd_right">
 					<p>￥{{Number(arr.discount)?(arr.price*arr.discount*0.1).toFixed(2):arr.price}}</p>
 					<p>￥{{arr.price}}</p>
 				</div>
 			</div>
 			
-			<div class="intro">
-				<div class="size">
+			<div class="pd_intro">
+				<div class="pd_size">
 					<p>size</p>
 					<div>
 						<span>S</span>
 						<span>M</span>
-						<span class="add">+</span>
+						<span class="pd_add">+</span>
 					</div>
 				</div>
-				<div class="color">
+				<div class="pd_color">
 					<p>color</p>
 					<div>
 						<span></span>
 						<span></span>
-						<span class="add">+</span>
+						<span class="pd_add">+</span>
 					</div>
 				</div>
 			</div>
 			
 			
-			<article class="introduce">
+			<article class="pd_introduce">
 				<h4>introduce</h4>
 				<p>{{arr.detail}}</p>
 			</article>
 			
-			<article class="commend">
+			<article class="pd_commend">
 				<h4>commend</h4>
-				<div id="wrapper">
+				<div id="pd_wrapper">
 					<ul>
-						<!--<li>
-							<img src="src/common/img/de_2.jpg"/>
-							<p>Platinum 2016</p>
-							<span>￥1890</span>
-						</li>
-						<li>
-							<img src="src/common/img/de_2.jpg"/>
-							<p>Platinum 2016</p>
-							<span>￥1890</span>
-						</li>
-						<li>
-							<img src="src/common/img/de_2.jpg"/>
-							<p>Platinum 2016</p>
-							<span>￥1890</span>
-						</li>
-						<li>
-							<img src="src/common/img/de_2.jpg"/>
-							<p>Platinum 2016</p>
-							<span>￥1890</span>
-						</li>-->
+						
 						<li v-for="item in imgsUrl"><img :src="item"></li>
 					</ul>
 				</div>
 				
 			</article>
-			<article class="shipping">
+			<article class="pd_shipping">
 				<h4>shipping</h4>
 				<p>Peking Opera Avenger Union,white pattern cotton national style T-shirt.</p>
 			</article>
-		</div>
-		<div class="cart">
-			<a>立即购买</a>
-			<a v-on:click="updateCart()">加入购物车</a>
+			<div class="pd_cart">
+			<router-link to="/pay"><span v-on:click="payy()">立即购买</span></router-link>
+			<span v-on:click="updateCart()">加入购物车</span>
 			
+			</div>
+		
 		</div>
 	</div>
 	
@@ -94,21 +80,19 @@
 	import { Toast } from 'mint-ui';
 	
 	export default {
-		name:'pro_detail',
+		name:'pro_',				
 		data(){
 			return{
 				arr:{},
 				imgsUrl:[],
-				goodsBenUrl:[]
+				goodsBenUrl:[],
+				modle:''
 			}
 		},
-		methods:{
-			back:function(){
-				history.back()
-			}
-		},
+	
 		beforeCreate(){
-			console.log(this.$route.params.id);
+			this.modle = this.$route.params.id;
+			
 			var _this = this;
 			$.ajax({
 				type:"get",
@@ -117,7 +101,7 @@
 				data:{goodsID:this.$route.params.id},
 				success:function(data){
 					data =JSON.parse(data.split('back(')[1].split('])')[0]+']') ;
-					console.log(data);
+
 					_this.arr = data[0];
 					console.log(JSON.parse(data[0].goodsBenUrl));
 					_this.goodsBenUrl = JSON.parse(data[0].goodsBenUrl);
@@ -126,11 +110,15 @@
 			});
 		},
 		methods:{
+			payy:function(){
+				console.log(this.$route.params.id)
+				this.$emit('v-modle',this.$route.params.id)
+			},
 			updateCart(){
 				console.log(22);
 				//加入购物车
 				var _this =this;
-				var username = localStorage.getItem('userID');
+				var username = localStorage.getItem('user');
 				if(username){
 					$.ajax({
 						type:"get",
@@ -162,11 +150,11 @@
 		mounted(){
 			
 			
-			//swiper初始化
-			var mySwiper1 = new Swiper ('.swiper-container2', {
-			   effect : 'coverflow',
-				centeredSlides: true,
-			})
+			//swiper初始化			
+				var mySwiper1 = new Swiper ('.swiper-container2', {
+
+				})
+			
 			/*//控制commentd可滚动区域的宽度
 			var oLi = $('.commend #wrapper ul li');
 			
@@ -175,6 +163,8 @@
 			var myscroll = new IScroll('#wrapper',{
 				scrollX:true
 			})*/
+			
+			
 		}
 	}
 </script>
@@ -187,9 +177,9 @@
 	
 	#pro_detail{
 		color: #3D4E56;
-		padding: 0 0.2rem 0.5rem;
+		padding: 0.4rem 0.2rem 0.5rem;
 	}
-	#pro_detail .cart{
+	 .pd_cart{
 		position: fixed;
 		bottom: 0;
 		left: 0;
@@ -197,59 +187,60 @@
 		background: rgba(210,210,210,0.5);
 		width: 100vw;
 	}
-	#pro_detail .cart a{
+	 .pd_cart span{
 		float: right;
 		width: 1rem;
 		text-align: center;
 		line-height: 0.5rem;
 	}
-	#pro_detail .cart a:last-child{
+	 .pd_cart span:last-child{
 		background: #fff;
 		
 	}
-	#pro_detail .cart a:first-child{
+	#pro_detail .pd_cart span:first-child{
 		background: #3D4E56;
 		color: #fff;
 	}
-	#pro_detail .swiper-slide img{
-		width: 2.6rem;
+   .pd_swiper img{
+		width: 100vw;
+		height:2.6rem
 		
 	}
-	#pro_detail .swiper-container2{
-		width: 2.6rem;
+	.swiper-container2{
+		width: 90vw;
 		margin: 0.1rem auto;
 		overflow: hidden;
 	}
-	#pro_detail .tit{
+	#pro_detail .pd_tit{
 		margin: 0.3rem 0;
 		overflow: hidden;
 	}
-	#pro_detail .tit .left{
+	#pro_detail .pd_tit .pd_left{
 		float: left;
 		line-height: 0.2rem;
 		width: 70%;
 	}
-	#pro_detail .tit .left p:nth-of-type(2),#pro_detail .tit .right p:nth-of-type(2){
+	#pro_detail .pd_tit .pd_left p:nth-of-type(2),#pro_detail .pd_tit .pd_right p:nth-of-type(2){
 		font-size: 0.12rem;
 		color: #B1B8BA;
 	}
-	#pro_detail .tit .right{
+	#pro_detail .pd_tit .pd_right{
 		float: right;
 		line-height: 0.2rem;
 	}
-	#pro_detail .intro{
+	#pro_detail .pd_intro{
 		overflow: hidden;
 		margin-bottom: 0.15rem;
 	}
-	#pro_detail .intro p{
+	#pro_detail .pd_intro p{
 		font-size: 0.12rem;
 		color: #B1B8BA;
 		line-height: 0.3rem;
 	}
-	#pro_detail .intro .size{
+	#pro_detail .pd_intro .pd_size{
 		float: left;
 	}
-	.intro .size span{
+	.pd_intro .pd_size span{
 		display: block;
 		width: 0.3rem;
 		height: 0.3rem;
@@ -260,10 +251,10 @@
 		float: left;
 		margin-right:0.12rem;
 	}
-	#pro_detail .intro .color{
+	#pro_detail .pd_intro .pd_color{
 		float: right;
 	}
-	#pro_detail .intro .color span{
+	#pro_detail .pd_intro .pd_color span{
 		display: block;
 		width: 0.3rem;
 		height: 0.3rem;
@@ -273,13 +264,13 @@
 		text-align: center;
 		line-height: 0.3rem;
 	}
-	#pro_detail .intro .color span:nth-of-type(1){
+	#pro_detail .pd_intro .pd_color span:nth-of-type(1){
 		background: #FF5053;
 	}
-	#pro_detail .intro .color span:nth-of-type(2){
+	#pro_detail .pd_intro .pd_color span:nth-of-type(2){
 		background: goldenrod;
 	}
-	#pro_detail .intro .add{
+	#pro_detail .pd_intro .pd_add{
 		color: #B1B8BA;
 		border: 1px solid #B1B8BA;
 	}
@@ -294,17 +285,17 @@
 		line-height: 0.3rem;
 		font-weight: 100;
 	}
-	#pro_detail .commend{
+	#pro_detail .pd_commend{
 		overflow: hidden;
 	}
-	#pro_detail .commend li{
+	#pro_detail .pd_commend li{
 		list-style: none;
 		
 	}
-	#pro_detail .commend li img{
+	#pro_detail .pd_commend li img{
 		width: 100%;
 	}
-	#pro_detail .commend li span{
+	#pro_detail .pd_commend li span{
 		font-size: 0.12rem;
 		color: #B1B8BA;
 	}

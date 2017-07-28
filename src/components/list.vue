@@ -9,7 +9,7 @@
 		<div class="content">
 			<ul>
 				<li v-for="(item,index) in conarr">
-					<router-link to="/pdetail" class="list_link">
+					<router-link :to="'/pdetail/'+item.goodsID" class="list_link">
 						<div class="img_wrap">							
 							<img :src='item.goodsListImg'/>						
 							<i class="iconfont1" @click="tap($event,index)">&#xe613;</i>
@@ -71,13 +71,13 @@
 				var _this = this;
 				$.ajax({
 					type:"get",
-					url:"http://datainfo.duapp.com/shopdata/getclass.php",
+					url:"http://datainfo.duapp.com/shopdata/getGoods.php",
 					data:{'classID':(i+1)},
 					async:true,
 					success:function(data){
 						
 						data =JSON.parse(data.split('(')[1].split(')')[0]); 
-						console.log(data);
+						
 						_this.conarr = data;
 					}
 				});

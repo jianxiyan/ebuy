@@ -1,12 +1,12 @@
 <template>
 	<div id="cart">
 		<ul class="cart_list" id="cartList">
-			<li class="cart_list_con" v-for='item in arr'>
+			<li class="cart_list_con" v-for='item in arr1'>
 				<input type="checkbox" class="cart_check check" />
-				<img :src="item.imgUrl"  />
+				<img :src="item.goodsListImg"  />
 				<div class="cart_js">
-					<p class="cart_goods_title">{{item.title}}</p>
-					<p class="cart_size">{{item.size}}</p>
+					<p class="cart_goods_title">{{item.className}}</p>
+					<p class="cart_size">xl</p>
 					<p class="cart_price"><span class="cart_price_new">￥{{item.price}}</span><span class="cart_price_old">{{item.price}}</span></p>
 					<p class="cart_sum">
 						<span class="cart_add">+</span>						
@@ -36,27 +36,49 @@ import $ from 'jquery'
   export default{
   	name:'cart',
   	data(){
-  		return{
-  			arr:[{'title':'海澜之家短裤','imgUrl':'src/common/img/QQ截图20170719210118.png','price':'370','size':'3xl'},
-		  		 {'title':'海澜之家短裤','imgUrl':'src/common/img/QQ截图20170719210118.png','price':'370','size':'3xl'},
-		  		 {'title':'海澜之家短裤','imgUrl':'src/common/img/QQ截图20170719210118.png','price':'370','size':'3xl'}
-		  		 ]
+  		return{			
+		  	arr1:[]	 
   		}
   	},
+  	methods:{
+  		
+  	},
+  	created(){
+  		var user = localStorage.getItem("user")
+  		var _this = this
+  		$.ajax({
+  			type:"get",
+  			url:"http://datainfo.duapp.com/shopdata/getCar.php",
+  			async:true,
+  			data:{"userID":user},
+  			success:function(data){
+  				data = JSON.parse(data.split("(")[1].split(")")[0])
+  				_this.arr1 = data
+  				console.log(_this.arr1)
+  			}
+  		});
+  	},
   	mounted(){
-  		var cartList=document.getElementById('cartList')
-  		var cartListcon=cartList.children
-  		var cartall=document.getElementById('cart_a')
+	  	
+			
   		
-  		var cartnum=document.getElementsByClassName('cart_num')
-  		
-  		var cartcheck=document.getElementsByTagName('cart_check')
-  		var checkInput=document.getElementsByClassName('check')
-  		var cartSum=document.getElementsByClassName('cart_account_sum')[0]
-  		
-  		var cartadd=document.getElementsByClassName('cart_add')
-  		var cartminus=document.getElementsByClassName('cart_minus')
+  		window.onload = function(){
 
+	  		var cartListcon=cartList.children
+	  		console.log(cartListcon)
+	  		var cartall=document.getElementById('cart_a')
+	  		
+	  		var cartnum=document.getElementsByClassName('cart_num')
+	  		
+	  		var cartcheck=document.getElementsByTagName('cart_check')
+	  		var checkInput=document.getElementsByClassName('check')
+	  		var cartSum=document.getElementsByClassName('cart_account_sum')[0]
+	  		
+	  		var cartadd=document.getElementsByClassName('cart_add')
+	  		var cartminus=document.getElementsByClassName('cart_minus')
+
+		console.log(cartSum)
+		
   			for(let i=0;i<cartminus.length;i++){			
   				cartminus[i].onclick=function(){
   					if(cartnum[i].value>1){
@@ -69,6 +91,7 @@ import $ from 'jquery'
 		for(let i=0;i<cartminus.length;i++){			
   				cartadd[i].onclick=function(){  				
   						cartnum[i].value++
+  					
   				
   				}
   			}
@@ -129,7 +152,7 @@ import $ from 'jquery'
   		
   		}
   		
-  
+  		}
   	}
 </script>
 
